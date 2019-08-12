@@ -1,0 +1,18 @@
+{
+  "printWidth": 90,
+  "tabWidth": 4,
+  "useTabs": false,
+  "overrides": [
+    {
+      "files": ["src/**/*.ts", "src/**/*.tsx"],
+      "options": {
+        "jsxBracketSameLine": true,
+        "bracketSpacing": true,
+        "semi": true,
+        "trailingComma": "all",
+        "singleQuote": true,
+        "parser": "typescript"
+      }
+    }
+  ]
+}
