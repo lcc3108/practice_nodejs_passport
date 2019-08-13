@@ -21,6 +21,8 @@ install:
   - yarn
 script:
   - yarn build
+before_deploy:
+  - terraform init
 deploy:
   - provider: script
     script: yarn deploy
