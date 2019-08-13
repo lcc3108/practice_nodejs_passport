@@ -6,8 +6,17 @@ cache:
   yarn: true
   directories:
   - $TRAVIS_BUILD_DIR/terraform.state
+  - $HOME/terraform
 before_install:
   - openssl aes-256-cbc -K $encrypted_9c03b547abcf_key -iv $encrypted_9c03b547abcf_iv -in google_key.json.enc -out google_key.json -d
+  - |
+    if [ ! -d "$HOME/terraform/bin" ]; then
+      rm -rf "$HOME/terraform"
+      mkdir -p $HOME/terraform/bin
+      wget https://releases.hashicorp.com/terraform/0.12.6/terraform_0.12.6_linux_amd64.zip
+      unzip terraform_0.12.4_linux_amd64.zip -d $HOME/terraform/bin/
+    fi
+  - export PATH=$PATH:$HOME/terraform/bin
 install:
   - yarn
 script:
