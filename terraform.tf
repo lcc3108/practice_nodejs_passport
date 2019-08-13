@@ -5,11 +5,6 @@ provider "google" {
 }
 
 
-
-provider "archive" {
-  version = "~> 1.2.2"
-}
-
 data "archive_file" "helloGET_zip" {
  type        = "zip"
  source_dir  = "./dist"
@@ -49,11 +44,6 @@ resource "google_cloudfunctions_function" "function" {
   # }
   timeout               = 60
   entry_point           = "helloGET"
-  labels = {
-    my-label = "my-label-value"
-  }
-  
-  
 }
 
 

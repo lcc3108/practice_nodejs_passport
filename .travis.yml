@@ -1,0 +1,20 @@
+language: node_js
+node_js:
+  - 8
+cache:
+  npm: true
+  yarn: true
+  directories:
+  - $TRAVIS_BUILD_DIR/terraform.state
+before_install:
+  - openssl aes-256-cbc -K $encrypted_9c03b547abcf_key -iv $encrypted_9c03b547abcf_iv
+  -in google_key.json.enc -out google_key.json -d
+install:
+  - yarn
+script:
+  - yarn build
+deploy:
+  provider: script
+  script: yarn deploy
+  on:
+    branch: master
