@@ -4,6 +4,9 @@ google_key.json
 *.log
 dist
 index.zip
+*.secret.*
+.env
+.vscode
 # Local .terraform directories
 **/.terraform/*
 

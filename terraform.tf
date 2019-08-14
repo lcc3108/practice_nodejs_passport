@@ -43,7 +43,7 @@ resource "google_cloudfunctions_function" "function" {
   #   url = "https://github.com/lcc3108/practice_nodejs_passport"
   # }
   timeout               = 60
-  entry_point           = "helloGET"
+  entry_point           = "login"
 }
 
 

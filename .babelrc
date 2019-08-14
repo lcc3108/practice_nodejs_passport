@@ -1,4 +1,5 @@
-
 {
-    "presets": ["@babel/typescript", ["@babel/env", { "targets": { "node": "8" } }]]
+  "presets": ["@babel/typescript", ["@babel/env", { "targets": { "node": "8" } }]],
+  "sourceMaps": true,
+  "comments": false
 }
