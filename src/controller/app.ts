@@ -7,7 +7,7 @@ export const loginModule = app => {
       if (err) {
         console.log(err);
       }
-      if (info) {;
+      if (info) {
         res.send(info);
       } else {
         req.logIn(user, async err => {
