@@ -1,46 +1,40 @@
 language: node_js
 node_js:
-- 8
+  - 8
 cache:
   npm: true
   yarn: true
   directories:
-  - "$HOME/google-cloud-sdk"
-  - "$HOME/terraform"
+    - $HOME/google-cloud-sdk
+    - $HOME/terraform
 env:
   global:
   - CLOUDSDK_CORE_DISABLE_PROMPTS=1
 before_install:
-- openssl aes-256-cbc -K $encrypted_ae3b260f512b_key -iv $encrypted_ae3b260f512b_iv
-  -in tslint.json.enc -out tslint.json -d
-- openssl aes-256-cbc -K $encrypted_9c03b547abcf_key -iv $encrypted_9c03b547abcf_iv
-  -in google_key.json.enc -out google_key.json -d
-- openssl aes-256-cbc -K $encrypted_ae3b260f512b_key -iv $encrypted_ae3b260f512b_iv
-  -in .env.enc -out .env -d
-- |
-  if [ ! -d "$HOME/terraform/bin" ]; then
-    rm -rf "$HOME/terraform"
-    mkdir -p $HOME/terraform/bin
-    wget https://releases.hashicorp.com/terraform/0.12.6/terraform_0.12.6_linux_amd64.zip
-    unzip terraform_0.12.6_linux_amd64.zip -d $HOME/terraform/bin/
-  fi
-- export PATH=$PATH:$HOME/terraform/bin
-- if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf "$HOME/google-cloud-sdk";
-  curl https://sdk.cloud.google.com | bash > /dev/null; fi
-- source $HOME/google-cloud-sdk/path.bash.inc
+  - openssl aes-256-cbc -K $encrypted_9c03b547abcf_key -iv $encrypted_9c03b547abcf_iv -in google_key.json.enc -out google_key.json -d
+  - openssl aes-256-cbc -K $encrypted_ae3b260f512b_key -iv $encrypted_ae3b260f512b_iv -in .env.enc -out .env -d
+    if [ ! -d "$HOME/terraform/bin" ]; then
+      rm -rf "$HOME/terraform"
+      mkdir -p $HOME/terraform/bin
+      wget https://releases.hashicorp.com/terraform/0.12.6/terraform_0.12.6_linux_amd64.zip
+      unzip terraform_0.12.6_linux_amd64.zip -d $HOME/terraform/bin/
+    fi
+  - export PATH=$PATH:$HOME/terraform/bin
+  - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf "$HOME/google-cloud-sdk"; curl https://sdk.cloud.google.com | bash > /dev/null; fi
+  - source $HOME/google-cloud-sdk/path.bash.inc
 install:
-- yarn
+  - yarn
 script:
-- yarn build
+  - yarn build
 before_deploy:
-- terraform init
-- gcloud auth activate-service-account --key-file=google_key.json
-- gsutil cp gs://lcc3108-nodejs-test-bucket/terraform.tfstate ./terraform.tfstate
+  - terraform init
+  - gcloud auth activate-service-account --key-file=google_key.json
+  - gsutil cp gs://lcc3108-nodejs-test-bucket/terraform.tfstate ./terraform.tfstate
 deploy:
-- provider: script
-  script: yarn deploy
-  skip_cleanup: true
-  on:
-    branch: master
+  - provider: script
+    script: yarn deploy
+    skip_cleanup: true
+    on:
+      branch: master
 after_deploy:
-- gsutil cp ./terraform.tfstate gs://lcc3108-nodejs-test-bucket/
+  - gsutil cp ./terraform.tfstate gs://lcc3108-nodejs-test-bucket/
