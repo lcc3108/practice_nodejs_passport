@@ -3,6 +3,7 @@ import express from 'express';
 import passport from '@/controller/auth';
 import { loginModule } from '@/controller/app';
 import logger from 'morgan';
+
 const app = express();
 app.use(passport.initialize());
 app.use(passport.session());
