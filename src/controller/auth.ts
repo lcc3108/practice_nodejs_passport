@@ -2,8 +2,7 @@ import passport from 'passport';
 import passportLocal from 'passport-local';
 import passportJWT from 'passport-jwt';
 import { getUser, doLogin } from '@/controller/user';
-import dotenv from 'dotenv';
-var config = dotenv.config();
+
 var LocalStrategy = passportLocal.Strategy;
 var StrategyJwt = passportJWT.Strategy;
 var extractJwt = passportJWT.ExtractJwt;
