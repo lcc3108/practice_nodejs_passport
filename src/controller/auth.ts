@@ -8,10 +8,10 @@ var LocalStrategy = passportLocal.Strategy;
 var StrategyJwt = passportJWT.Strategy;
 var extractJwt = passportJWT.ExtractJwt;
 var param = {
-  secretOrKey: process.env.secret,
+  secretOrKey: process.env.jwtsecret,
   jwtFromRequest: extractJwt.fromAuthHeaderAsBearerToken(),
 };
-console.log(process.env.secret);
+console.log(process.env.jwtsecret);
 
 var localStrategy = passport.use(
   'login',

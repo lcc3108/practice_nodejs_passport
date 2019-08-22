@@ -13,7 +13,7 @@ export const loginModule = app => {
         req.logIn(user, async err => {
           if (user) {
             console.log(user.uid);
-            const jwtToken = jwt.sign({ uid: user.id }, process.env.secret,{
+            const jwtToken = jwt.sign({ uid: user.id }, process.env.jwtsecret,{
               expiresIn: '5m',
               issuer: 'lcc3108.com',
               subject: 'userInfo'
@@ -33,7 +33,7 @@ export const loginModule = app => {
       auth:true
     });
   });
-  app.set('jwt-secret', process.env.secret);
+  app.set('jwt-secret', process.env.jwtsecret);
   app.listen(3000, () => {
     console.log('start server');
   });
