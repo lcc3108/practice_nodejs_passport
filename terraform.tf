@@ -27,7 +27,7 @@ resource "google_cloudfunctions_function" "function" {
   description           = "My function"
   runtime               = "nodejs8"
 
-  available_memory_mb   = 128
+  available_memory_mb   = 256
   source_archive_bucket = "${google_storage_bucket.bucket.name}"
   source_archive_object = "${google_storage_bucket_object.archive.name}"
   # event_trigger {

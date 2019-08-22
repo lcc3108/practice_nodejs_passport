@@ -9,7 +9,8 @@ index.zip
 .vscode
 # Local .terraform directories
 **/.terraform/*
-
+.serverless
+serverless.yml
 # .tfstate files
 *.tfstate
 *.tfstate.*
