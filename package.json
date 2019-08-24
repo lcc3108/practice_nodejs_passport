@@ -6,7 +6,7 @@
       "start": "node ./dist/index.js",
       "prebuild": "rm -rf dist index.zip",
       "build": "NODE_ENV=production node -r ./env.js ./node_modules/.bin/babel src --out-dir dist --copy-files --extensions \".ts,.tsx\"",
-      "postbuild": "cp package.json ./dist",
+      "postbuild": "cp -t ./dist package.json google_key.json",
       "deploy": "terraform plan && terraform apply --auto-approve",
       "test": "mocha -r ./mocha.js --timeout 10000",
       "test:all": "mocha -r ./mocha.js --timeout 10000 ./src/tests/**/*.spec.ts",

@@ -5,6 +5,7 @@ import { typeDefs } from "@/models/graphql/types";
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  playground: true,
   context: ({ req }) => ({ user: req.user }),
 });
 

@@ -32,8 +32,9 @@ install:
   - yarn
 
 script:
-  - yarn type-check
   - yarn lint
+  - yarn type-check
+  - yarn test:all
   - yarn build
 
 before_deploy:

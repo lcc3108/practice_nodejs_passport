@@ -9,7 +9,7 @@ function emailIsValid(email: string): boolean {
 
 export const deleteUser = async (id: string) => {
   const querySnapshot = await collection.where("id", "==", id).get();
-  querySnapshot.docs[0].ref.delete();
+  if (querySnapshot.docs[0]) querySnapshot.docs[0].ref.delete();
 };
 
 export const getUser = async (id: string): Promise<IUser | undefined> => {
