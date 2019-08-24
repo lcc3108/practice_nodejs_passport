@@ -6,9 +6,10 @@ import "./signup.spec";
 
 describe("passport login", () => {
   it("dologin", async () => {
-    const result = await requestAsync("GET", "/login", { params: { id: "admin", passwd: "dtd" } });
-    expect(result).to.have.status(200);
+    // const result = await requestAsync("POST", "/", { body: "d" });
+    // expect(result).to.have.status(200);
   })
 });
 
 // https://www.chaijs.com/api/bdd/
+// 
