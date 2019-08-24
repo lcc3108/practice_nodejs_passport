@@ -33,6 +33,7 @@ install:
 
 script:
   - yarn type-check
+  - yarn lint
   - yarn build
 
 before_deploy:

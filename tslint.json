@@ -1,7 +1,13 @@
 {
-    "defaultSeverity": "error",
-    "extends": ["tslint:recommended"],
-    "jsRules": {},
-    "rules": { "no-console": false },
-    "rulesDirectory": []
+  "defaultSeverity": "error",
+  "extends": ["tslint:recommended"],
+  "jsRules": {},
+  "rules": {
+    "no-console": false,
+    "ordered-imports": false,
+    "object-literal-sort-keys": false,
+    "one-line": [false, "check-else"],
+    "curly": [true, "ignore-same-line"]
+  },
+  "rulesDirectory": []
 }

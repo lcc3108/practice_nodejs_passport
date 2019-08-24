@@ -6,10 +6,15 @@
       {
         "root": ["./src"],
         "alias": { "@": "./src" }
-      },
-    ],
-    "transform-inline-environment-variables"
+      }
+    ]
   ],
+  "env": {
+    "production": {
+      "presets": ["minify"],
+      "plugins": ["transform-inline-environment-variables"]
+    }
+  },
   "sourceMaps": true,
   "comments": false
 }

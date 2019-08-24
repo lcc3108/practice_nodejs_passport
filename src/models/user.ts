@@ -1,7 +1,6 @@
-export interface User {
-    uid: string;
-    passwd: string;
-    salt: string;
-    email: string;
-    userName: string;
-};
+export interface IUser {
+  id: string;
+  passwd: string;
+  salt: string;
+  email: string;
+}
