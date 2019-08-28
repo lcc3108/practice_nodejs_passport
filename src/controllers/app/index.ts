@@ -15,3 +15,5 @@ app.use(passport.authenticate("jwt"));
 
 // grapql load
 server.applyMiddleware({ app, path: "/" });
+
+console.log('load', __filename)

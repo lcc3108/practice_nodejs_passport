@@ -12,9 +12,9 @@
   "env": {
     "production": {
       "presets": ["minify"],
-      "plugins": ["transform-inline-environment-variables"]
+      "plugins": ["transform-inline-environment-variables"],
+      "sourceMaps": "inline"
     }
   },
-  "sourceMaps": "inline",
   "comments": false
 }
