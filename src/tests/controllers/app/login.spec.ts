@@ -10,9 +10,9 @@ describe("login", () => {
     expect(result.text).to.have.string("data");
   });
 
-  it.only("dologin invalid", async () => {
+  it("dologin invalid", async () => {
     const result = await requestGraphQLAsync({ query: 'mutation{ login(id: "admin@test.com",passwd: "zzz") }' });
-    expect(result.body).to.have.string("id or passwd invalid");
+    expect(result.text).to.have.string("id or passwd invalid");
   });
 
   it("cache test", async () => {

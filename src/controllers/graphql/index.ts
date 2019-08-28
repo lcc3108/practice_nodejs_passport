@@ -7,8 +7,6 @@ import { typeDefs } from "@/models/graphql/types";
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  playground: true,
-  introspection: true,
   context: ({ req }) => ({ user: req.user }),
   schemaDirectives: {
     // isAuth: IsAuthUserDirective

@@ -7,7 +7,8 @@
     "ordered-imports": false,
     "object-literal-sort-keys": false,
     "one-line": [false, "check-else"],
-    "curly": [true, "ignore-same-line"]
+    "curly": [true, "ignore-same-line"],
+    "max-line-length": [true, 160]
   },
   "rulesDirectory": []
 }
