@@ -29,7 +29,6 @@ export const doLogin = async (id: string, passwd: string): Promise<IUser | undef
 };
 
 export const doSingUp = async (id: string, passwd: string, nickName: string): Promise<DocumentReference | undefined> => {
-  // console.log("doSignup");
   if (emailIsValid(id)) {
     const data = await getUser(id);
     if (!data) {

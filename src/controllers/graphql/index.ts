@@ -2,15 +2,14 @@ import { ApolloServer } from "apollo-server-express";
 import { resolvers } from "@/controllers/graphql/resolvers";
 import { typeDefs } from "@/models/graphql/types";
 
-// import { IsAuthUserDirective } from "@/models/graphql/directive";
+import {schemaDirectives} from "@/models/graphql/directives";
 
+console.log(schemaDirectives)
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: ({ req }) => ({ user: req.user }),
-  schemaDirectives: {
-    // isAuth: IsAuthUserDirective
-  }
+  schemaDirectives
 });
 
 export default server;

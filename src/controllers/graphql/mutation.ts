@@ -14,7 +14,7 @@ export default {
   signup: async (_, { id, passwd, nickName }) => {
     const user = await doSingUp(id, passwd, nickName);
     if (user) return { status: 200, message: "success signup" };
-    else return { status: 403, message: "already exist id" };
+    else return { status: 403, message: "invalid or already exist id" };
   },
   signout: async (_, __, { user }) => {
     console.log(user);
