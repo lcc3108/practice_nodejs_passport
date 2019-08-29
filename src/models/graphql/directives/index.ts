@@ -1,9 +1,9 @@
 import { IsAuthDirective } from "./auth";
-import { LengthDirective } from "./length";
+// import { LengthDirective } from "./length";
 const ConstraintDirective = require('graphql-constraint-directive')
 
 export const schemaDirectives = {
     isAuth: IsAuthDirective,
-    length: LengthDirective,
+    // length: LengthDirective,
     constraint: ConstraintDirective
 };
