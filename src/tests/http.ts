@@ -5,7 +5,6 @@ import express from "express";
 import logger from "morgan";
 
 import { app } from "@/controllers/app";
-import passport from "@/controllers/passport";
 
 export default app;
 

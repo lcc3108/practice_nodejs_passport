@@ -1,6 +1,5 @@
 import { doLogin, deleteUser, getUser, doSingUp } from "@/controllers/user";
-import { generateToken } from "@/controllers/passport/jwt";
-import { isValidToken } from "../app/jwt";
+import { isValidToken, generateToken } from "../app/jwt";
 
 export default {
   login: async (_, { id, passwd },  {user: userInfo} ,____) => {
