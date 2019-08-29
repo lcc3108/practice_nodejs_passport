@@ -1,10 +1,11 @@
 import { doLogin, deleteUser, getUser, doSingUp } from "@/controllers/user";
 import { generateToken } from "@/controllers/passport/jwt";
+import { isValidToken } from "../app/jwt";
 
 export default {
-  login: async (_, { id, passwd }, { user: { auth } }) => {
+  login: async (_, { id, passwd },  {user: userInfo} ,____) => {
+    if (userInfo && await isValidToken(userInfo)) return "alreay exist token";
     const user = await doLogin(id, passwd);
-    if (auth) return "alreay exist token";
 
     if (user) {
       const { id: userId, nickName } = user;

@@ -14,7 +14,7 @@ interface ITokenBody {
 }
 
 export const generateToken = (id: string = "") => {
-  const token = jwt.sign({ id }, process.env.jwtsecret, {
+  const token = jwt.sign({ id,auth : true }, process.env.jwtsecret, {
     expiresIn: `${EXPIRE_TIME}s`,
     issuer: "lcc3108.com",
     subject: "userInfo",

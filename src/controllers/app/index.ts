@@ -1,17 +1,20 @@
-import express from "express";
+import express  from 'express';
+import jwt from 'express-jwt';
 import logger from "morgan";
-import passport from "@/controllers/passport";
 import server from "@/controllers/graphql";
-// import { expressSignup } from "./signup";
 // init express
 export const app = express();
+// jwt setting
+const authMiddleware = jwt({
+    secret: process.env.jwtsecret,
+    credentialsRequired: false,
+});
+
 // middleware add
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(logger("dev"));
-app.set("jwt-secret", process.env.jwtsecret);
-app.use(passport.initialize());
-app.use(passport.authenticate("jwt"));
+app.use(authMiddleware);
 
 // grapql load
 server.applyMiddleware({ app, path: "/" });

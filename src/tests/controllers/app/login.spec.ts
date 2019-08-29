@@ -16,12 +16,12 @@ describe("login", () => {
   });
 
   it("cache test", async () => {
+    //처음 로그인
     const { body: login } = await requestGraphQLAsync({ query: 'mutation{ login(id: "admin@test.com",passwd: "dtd") }' });
     const before = await requestGraphQLAsync({
       query: 'mutation{ login(id: "admin@test.com",passwd: "dtd") }',
       authorization: login.data.login,
     });
-
     expect(before.text).to.have.string("alreay exist token");
 
     await new Promise((resolve) => setTimeout(() => resolve(true), 1000));
@@ -31,7 +31,6 @@ describe("login", () => {
       query: 'mutation{ login(id: "admin@test.com",passwd: "dtd") }',
       authorization: login.data.login,
     });
-
     expect(result.text).to.not.have.string("alreay exist token");
   });
 });
