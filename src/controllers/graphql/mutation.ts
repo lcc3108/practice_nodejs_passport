@@ -2,7 +2,8 @@ import { doLogin, deleteUser, getUser, doSingUp } from "@/controllers/user";
 import { isValidToken, generateToken } from "../app/jwt";
 
 export default {
-  login: async (_, { id, passwd },  {user: userInfo} ,____) => {
+  login: async (_, { id, passwd },  {user: userInfo} ) => {
+    console.log(userInfo)
     if (userInfo && await isValidToken(userInfo)) return "alreay exist token";
     const user = await doLogin(id, passwd);
 
