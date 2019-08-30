@@ -13,13 +13,11 @@ export const deleteUser = async (id: string) => {
 };
 
 export const getUser = async (id: string): Promise<IUser | undefined> => {
-  // console.log("getUser" + id);
   const querySnapshot = await collection.where("id", "==", id).get();
   return getSingleItem<IUser>(querySnapshot);
 };
 
 export const doLogin = async (id: string, passwd: string): Promise<IUser | undefined> => {
-  // console.log("doLogin" + id + passwd);
   const data = await getUser(id);
   if (data) {
     const { passwd: userPasswd, salt, ...user } = data;
@@ -33,7 +31,7 @@ export const doSingUp = async (id: string, passwd: string, nickName: string): Pr
     const data = await getUser(id);
     if (!data) {
       const { hash, salt } = await cryptHelper(passwd);
-      return addSingleItem({ id, hash, salt, nickName });
+      return addSingleItem({ id, passwd: hash, salt, nickName });
     }
   }
 };

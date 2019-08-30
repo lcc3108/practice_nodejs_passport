@@ -28,7 +28,7 @@ export const requestAsync = async (method: methods, path: string, { authorizatio
       .request(app)
       [method.toLowerCase()](path)
       .query(params || {})
-      .set("authorization", authorization ? `bearer ${authorization}` : "")
+      .set("authorization", authorization ? `Bearer ${authorization}` : "")
       .send(body || {})
       .end((err, res) => {
         if (err) return reject(err);

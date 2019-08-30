@@ -31,6 +31,8 @@ describe("login", () => {
       query: 'mutation{ login(id: "admin@test.com",passwd: "dtd") }',
       authorization: login.data.login,
     });
+    console.log(result.body)
+    expect(result.text).to.not.have.string("errors");
     expect(result.text).to.not.have.string("alreay exist token");
   });
 });

@@ -1,9 +1,7 @@
 import { IsAuthDirective } from "./auth";
-// import { LengthDirective } from "./length";
-const ConstraintDirective = require('graphql-constraint-directive')
+import { EmailFormDirective } from "./email";
 
 export const schemaDirectives = {
-    isAuth: IsAuthDirective,
-    // length: LengthDirective,
-    constraint: ConstraintDirective
+  isAuth: IsAuthDirective,
+  isEmail: EmailFormDirective,
 };

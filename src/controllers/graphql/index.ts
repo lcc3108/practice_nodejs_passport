@@ -3,11 +3,10 @@ import { resolvers } from "@/controllers/graphql/resolvers";
 import { typeDefs } from "@/models/graphql/types";
 import { schemaDirectives } from "@/models/graphql/directives";
 
-console.log(schemaDirectives);
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: ({ req }) => ({ user: req['user'] }),
+  context: ({ req }) => ({ user: req["user"] }),
   schemaDirectives,
 });
 
