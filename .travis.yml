@@ -52,11 +52,8 @@ jobs:
   include:
     # Backend test
     - env: DIRECTORY=backend
-      # after_install:
-      install:
-        - openssl aes-256-cbc -K $encrypted_ae3b260f512b_key -iv $encrypted_ae3b260f512b_iv -in backend/.env.enc -out backend/.env -d
-        - gcloud auth activate-service-account --key-file=google_key.json
-        - gsutil cp gs://lcc3108-nodejs-test-bucket/.env ./backend/.env
+      before_script:
+        - openssl aes-256-cbc -K $encrypted_ae3b260f512b_key -iv $encrypted_ae3b260f512b_iv -in .env.enc -out .env -d
       script:
         - yarn lint
         - yarn type-check
