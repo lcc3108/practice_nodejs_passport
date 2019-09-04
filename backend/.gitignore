@@ -14,7 +14,6 @@ serverless.yml
 # .tfstate files
 *.tfstate
 *.tfstate.*
-backend
 # Crash log files
 crash.log
 
