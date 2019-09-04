@@ -27,6 +27,8 @@ before_install:
   - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf "$HOME/google-cloud-sdk"; curl https://sdk.cloud.google.com | bash > /dev/null; fi
   - source $HOME/google-cloud-sdk/path.bash.inc
 
+  - if [ -d "$PWD/DIRECTORY" ]; then cd $PWD/DIRECTORY; else exit 1 fi;
+
 install:
   - yarn
 
@@ -53,8 +55,6 @@ jobs:
         - openssl aes-256-cbc -K $encrypted_ae3b260f512b_key -iv $encrypted_ae3b260f512b_iv -in backend/.env.enc -out backend/.env -d
         - gcloud auth activate-service-account --key-file=google_key.json
         - gsutil cp gs://lcc3108-nodejs-test-bucket/.env ./backend/.env
-      before_script:
-        - cd backend
       script:
         - yarn lint
         - yarn type-check
@@ -65,7 +65,7 @@ jobs:
         - echo "frontend"
     - stage: deploy
       before_install:
-        - echo "test"
+        - echo "Start deploy..."
 
 # jobs:
 #   include:
