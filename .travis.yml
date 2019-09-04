@@ -39,7 +39,7 @@ jobs:
       before_script:
         - openssl aes-256-cbc -K $encrypted_ae3b260f512b_key -iv $encrypted_ae3b260f512b_iv -in .env.enc -out .env -d
         - gcloud auth activate-service-account --key-file=../google_key.json
-        - gsutil cp gs://lcc3108-nodejs-test-bucket/env .env
+        - gsutil cp  gs://lcc3108-nodejs-test-bucket/env .env
       script:
         - yarn lint
         - yarn type-check
@@ -50,6 +50,8 @@ jobs:
     - env: DIRECTORY=frontend
       script:
         - echo "frontend"
+    
+    # Deployment
     - stage: deploy
       before_install:
         - echo "Start deploy..."
