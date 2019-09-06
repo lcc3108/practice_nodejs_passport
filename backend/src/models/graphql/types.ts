@@ -22,7 +22,7 @@ export const typeDefs = gql`
   }
 
   type Mutation {
-    login(id: String @isEmail, passwd: String): String
+    login(id: String , passwd: String): String
     signup(id: String @isEmail, passwd: String, nickName: String): Response
     signout: Response @isAuth
     addPortfolio: Response @isAuth
