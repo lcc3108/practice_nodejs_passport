@@ -6,8 +6,8 @@
     "install:backend": "yarn install --prefix=backend",
     "install:frontend": "yarn install --prefix=frontend",
     "install:all": "yarn install:backend && yarn install:frontend",
-    "build:backend": "yarn build --prefix=backend",
-    "build:frontend": "yarn build --prefix=frontend",
+    "build:backend": "cd backend && yarn build ",
+    "build:frontend": "cd frontend && yarn build",
     "prebuild:all": "yarn install:all",
     "build:all": "yarn build:backend && yarn build:frontend",
     "deploy": "terraform plan && terraform apply --auto-approve"
