@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "install:backend": "yarn install --prefix=backend",
-    "install:frontend": "yarn install --prefix=frontend",
+    "install:backend": "cd backend && yarn install",
+    "install:frontend": "cd frontend && yarn install",
     "install:all": "yarn install:backend && yarn install:frontend",
-    "build:backend": "cd backend && yarn build ",
+    "build:backend": "cd backend && yarn build",
     "build:frontend": "cd frontend && yarn build",
     "prebuild:all": "yarn install:all",
     "build:all": "yarn build:backend && yarn build:frontend",

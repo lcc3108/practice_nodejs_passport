@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./dist/index.js",
-    "prebuild": "rm -rf dist index.zip",
+    "prebuild": "rm -rf dist",
     "build": "NODE_ENV=production node -r ./env.js ./node_modules/.bin/babel src --out-dir dist --copy-files --extensions \".ts,.tsx\"",
     "postbuild": "cp -t ./dist package.json ../google_key.json",
     "test": "NODE_ENV=test mocha -r ./mocha.js --timeout 10000",
