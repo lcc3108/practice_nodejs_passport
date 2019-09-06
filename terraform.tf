@@ -57,6 +57,15 @@ resource "google_app_engine_standard_app_version" "version_id" {
   }
 
   handlers {
+    url_regex = "/"
+    static_files {
+      path = "index.html"
+      upload_path_regex= "index.html"
+      require_matching_file = false
+    }
+  }
+
+  handlers {
     url_regex = "/(.*)"
     static_files {
       path = "\\1"

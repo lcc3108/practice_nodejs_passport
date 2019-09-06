@@ -58,13 +58,14 @@ jobs:
         - yarn type-check
         # - yarn test
         - yarn build
-    
+
     # Deployment
     - stage: deploy
       before_install:
         - echo "Start deploy..."
-      before_deploy:
+      script:
         - yarn build:all
+      before_deploy:
         - terraform init
         - gcloud auth activate-service-account --key-file=google_key.json
         - gsutil cp gs://lcc3108-nodejs-test-bucket/terraform.tfstate ./terraform.tfstate

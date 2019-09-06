@@ -1,4 +1,4 @@
-import React, { FunctionComponentElement } from "react";
+import React from "react";
 import { LOG_IN } from "./query";
 import { useMutation } from "@apollo/react-hooks";
 import { Dialog, DialogTitle, DialogContent, DialogContentText, TextField, Button, DialogActions } from "@material-ui/core";

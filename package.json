@@ -5,11 +5,11 @@
   "scripts": {
     "install:backend": "yarn install --prefix=backend",
     "install:frontend": "yarn install --prefix=frontend",
-    "preinstall:all": "yarn install:backend",
+    "preinstall:all": "yarn install:backend && yarn install:frontend",
     "build:backend": "yarn build --prefix=backend",
     "build:frontend": "yarn build --prefix=frontend",
     "prebuild:all": "yarn install:all",
-    "build:all": "yarn build:backend",
+    "build:all": "yarn build:backend && yarn build:frontend",
     "deploy": "terraform plan && terraform apply --auto-approve"
   }
 }
