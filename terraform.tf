@@ -4,21 +4,32 @@ provider "google" {
   region      = "asia-east2"
 }
 
+data "archive_file" "backend_zip" {
+  type        = "zip"
+  source_dir  = "./backend/dist"
+  output_path = "./backend.zip"
+}
 
-data "archive_file" "helloGET_zip" {
- type        = "zip"
- source_dir  = "./dist"
- output_path = "./index.zip"
+data "archive_file" "frontend_zip" {
+  type        = "zip"
+  source_dir  = "./frontend/build"
+  output_path = "./frontend.zip"
 }
 
 resource "google_storage_bucket" "bucket" {
   name = "lcc3108-nodejs-test-bucket"
 }
 
-resource "google_storage_bucket_object" "archive" {
-  name   = "${data.archive_file.helloGET_zip.output_base64sha256}.zip"
+resource "google_storage_bucket_object" "backend_object" {
+  name   = "${data.archive_file.backend_zip.output_base64sha256}.zip"
   bucket = "${google_storage_bucket.bucket.name}"
-  source = "${data.archive_file.helloGET_zip.output_path}"
+  source = "${data.archive_file.backend_zip.output_path}"
+}
+
+resource "google_storage_bucket_object" "frontend_object" {
+  name   = "${data.archive_file.frontend_zip.output_base64sha256}.zip"
+  bucket = "${google_storage_bucket.bucket.name}"
+  source = "${data.archive_file.frontend_zip.output_path}"
 }
 
 resource "google_cloudfunctions_function" "function" {
@@ -28,22 +39,29 @@ resource "google_cloudfunctions_function" "function" {
 
   available_memory_mb   = 256
   source_archive_bucket = "${google_storage_bucket.bucket.name}"
-  source_archive_object = "${google_storage_bucket_object.archive.name}"
-  # event_trigger {
-  #   event_type = "providers/cloud.storage/eventTypes/object.change"
-  #   resource   = "${google_storage_bucket.bucket.name}"
-  #   failure_policy {
-  #     retry = true
-  #   }
-
-  # }
+  source_archive_object = "${google_storage_bucket_object.backend_object.name}"
   trigger_http          = true
-  # source_repository {
-  #   url = "https://github.com/lcc3108/practice_nodejs_passport"
-  # }
   timeout               = 60
   entry_point           = "graphql"
 }
 
+resource "google_app_engine_standard_app_version" "version_id" {
+  version_id = "v1"
+  service = "default"
+  runtime = "nodejs10"
+  noop_on_destroy = true
+  deployment {
+    zip {
+      source_url = "https://storage.googleapis.com/${google_storage_bucket.bucket.name}/${google_storage_bucket_object.frontend_object.name}"
+    }
+  }
 
-
+  handlers {
+    url_regex = "/(.*)"
+    static_files {
+      path = "\\1"
+      upload_path_regex= ".*"
+      require_matching_file = false
+    }
+  }
+}
