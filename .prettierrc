@@ -4,7 +4,7 @@
   "useTabs": false,
   "overrides": [
     {
-      "files": ["src/**/*.ts", "src/**/*.tsx"],
+      "files": ["**/*.ts", "**/*.tsx"],
       "options": {
         "jsxBracketSameLine": true,
         "bracketSpacing": true,
