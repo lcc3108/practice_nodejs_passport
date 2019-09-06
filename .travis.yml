@@ -32,8 +32,6 @@ before_install:
     then
       cp google_key.json $PWD/$DIRECTORY
       cd $PWD/$DIRECTORY
-    else
-      exit 1
     fi
 
 install:
@@ -61,8 +59,6 @@ jobs:
 
     # Deployment
     - stage: deploy
-      before_install:
-        - echo "Start deploy..."
       script:
         - yarn build:all
       before_deploy:
