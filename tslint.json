@@ -9,7 +9,8 @@
     "one-line": [false, "check-else"],
     "curly": [true, "ignore-same-line"],
     "max-line-length": [true, 160],
-    "semicolon": [true, "always", "strict-bound-class-methods"]
+    "semicolon": [true, "always", "strict-bound-class-methods"],
+    "object-literal-key-quotes": [true, "as-needed"]
   },
   "rulesDirectory": []
 }

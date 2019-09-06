@@ -1,14 +1,11 @@
 import React, { Component } from "react";
 import "./App.css";
 import client from "./Apollo";
-import { ApolloProvider, useMutation } from "@apollo/react-hooks";
+import { ApolloProvider } from "@apollo/react-hooks";
 import PrimarySearchAppBar from "./AppBar";
 
-export default class App extends React.Component {
+export default class App extends Component {
   public state = { jwt: null };
-  constructor(props: any) {
-    super(props);
-  }
 
   public setJWT = (token: string) => {
     console.log(token);
