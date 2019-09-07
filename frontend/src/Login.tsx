@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { LOGIN, SIGNUP } from "./query";
 import { useMutation } from "@apollo/react-hooks";
-import { Dialog, DialogTitle, DialogContent, DialogContentText, TextField, Button, DialogActions } from "@material-ui/core";
+import { Dialog, DialogTitle, DialogContent, TextField, Button, DialogActions } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { fade, makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,6 +47,7 @@ const AppBarDialog: React.FunctionComponent<ILoginProps> = ({ jwtHandler, dialog
   async function doSignup(id?: string, passwd?: string, nickname?: string): Promise<void> {
     if (id && passwd) {
       const { data } = await signup({ variables: { id, passwd, nickname } });
+      console.log(data);
       handleClose();
     }
   }
