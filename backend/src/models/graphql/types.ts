@@ -6,7 +6,7 @@ export const typeDefs = gql`
 
   type User {
     id: String! @isEmail
-    nickName: String!
+    nickname: String!
     jwt: String
   }
 
@@ -22,11 +22,11 @@ export const typeDefs = gql`
   }
 
   type Mutation {
-    login(id: String , passwd: String): String
-    signup(id: String @isEmail, passwd: String, nickName: String): Response
+    login(id: String, passwd: String): String
+    signup(id: String @isEmail, passwd: String, nickname: String): Response
     signout: Response @isAuth
     addPortfolio: Response @isAuth
-    addTitle: Response @isAuth
-    addBody: Response @isAuth
+    addTitle(body: String): Response @isAuth
+    addBody(body: String): Response @isAuth
   }
 `;

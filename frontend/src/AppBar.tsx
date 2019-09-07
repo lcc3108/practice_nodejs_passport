@@ -15,7 +15,7 @@ import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 
-import Login from "./Login";
+import AppBarDialog from "./Login";
 
 interface IPrimarySearchAppBar {
   jwtHandler: (token: string) => void;
@@ -95,7 +95,6 @@ export default function PrimarySearchAppBar({ jwtHandler }: IPrimarySearchAppBar
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
   const [dialogOpen, dialogSetOpen] = React.useState(false);
-
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -135,8 +134,7 @@ export default function PrimarySearchAppBar({ jwtHandler }: IPrimarySearchAppBar
       open={isMenuOpen}
       onClose={handleMenuClose}>
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleClickOpen}>Login</MenuItem>
-      <MenuItem onClick={handleMenuClose}>SignUp</MenuItem>
+      <MenuItem onClick={handleClickOpen}>Login/Signup</MenuItem>
     </Menu>
   );
 
@@ -230,7 +228,7 @@ export default function PrimarySearchAppBar({ jwtHandler }: IPrimarySearchAppBar
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
-      <Login dialogOpen={dialogOpen} handleClose={handleClose} jwtHandler={jwtHandler} />
+      <AppBarDialog jwtHandler={jwtHandler} dialogOpen={dialogOpen} handleClose={handleClose} />
     </div>
   );
 }

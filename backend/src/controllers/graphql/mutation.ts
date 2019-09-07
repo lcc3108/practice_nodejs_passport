@@ -7,12 +7,12 @@ export default {
     if (userInfo && (await isValidToken(userInfo))) throw "alreay exist token";
     const user = await doLogin(id, passwd);
     if (user) {
-      const { id: userId, nickName } = user;
+      const { id: userId, nickname } = user;
       return generateToken(id);
     } else return "id or passwd invalid";
   },
-  signup: async (_, { id, passwd, nickName }) => {
-    const user = await doSingUp(id, passwd, nickName);
+  signup: async (_, { id, passwd, nickname }) => {
+    const user = await doSingUp(id, passwd, nickname);
     if (user) return { status: 200, message: "success signup" };
     else return { status: 403, message: "invalid or already exist id" };
   },

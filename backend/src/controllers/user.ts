@@ -26,12 +26,12 @@ export const doLogin = async (id: string, passwd: string): Promise<IUser | undef
   }
 };
 
-export const doSingUp = async (id: string, passwd: string, nickName: string): Promise<DocumentReference | undefined> => {
+export const doSingUp = async (id: string, passwd: string, nickname: string): Promise<DocumentReference | undefined> => {
   if (emailIsValid(id)) {
     const data = await getUser(id);
     if (!data) {
       const { hash, salt } = await cryptHelper(passwd);
-      return addSingleItem({ id, passwd: hash, salt, nickName });
+      return addSingleItem({ id, passwd: hash, salt, nickname });
     }
   }
 };
