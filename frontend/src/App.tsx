@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import client from "./Apollo";
-import { ApolloProvider } from "@apollo/react-hooks";
+import { ApolloProvider } from "react-apollo";
 import PrimarySearchAppBar from "./AppBar";
 
 export default class App extends Component {

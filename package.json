@@ -11,5 +11,13 @@
     "prebuild:all": "yarn install:all",
     "build:all": "yarn build:backend && yarn build:frontend",
     "deploy": "terraform plan && terraform apply --auto-approve"
+  },
+  "dependencies": {
+    "@apollo/react-components": "^3.1.0",
+    "react-apollo": "^3.1.0",
+    "validator": "^11.1.0"
+  },
+  "devDependencies": {
+    "@types/validator": "^10.11.3"
   }
 }
