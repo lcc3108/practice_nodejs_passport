@@ -17,6 +17,7 @@ export const typeDefs = gql`
   }
 
   type Query {
+    ValidateToken(token: String): Boolean
     retrieveUser(id: String): User
     retrievePortfolio(id: String): Response
   }

@@ -10,7 +10,9 @@
     "curly": [true, "ignore-same-line"],
     "max-line-length": [true, 160],
     "semicolon": [true, "always", "strict-bound-class-methods"],
-    "object-literal-key-quotes": [true, "as-needed"]
+    "object-literal-key-quotes": [true, "as-needed"],
+    "member-access": true,
+    "no-empty-interface": false
   },
   "rulesDirectory": []
 }

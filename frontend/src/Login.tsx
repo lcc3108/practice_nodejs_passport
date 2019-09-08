@@ -44,58 +44,7 @@ class AppBarDialog extends React.Component<ILoginProps, ILoginState> {
       isLoading: false,
     };
   }
-
-  private handleSignup = () => {
-    this.setState({ isSignup: !this.state.isSignup });
-  };
-
-  private handleTrueLoading = () => {
-    this.setState({ isLoading: true });
-  };
-
-  private handleFalseLoading = () => {
-    this.setState({ isLoading: false });
-  };
-
-  private doLogin = async (id?: string, passwd?: string) => {
-    const { jwtHandler, client } = this.props;
-
-    if (id && passwd) {
-      const { data } = await client.mutate({
-        mutation: LOGIN,
-        variables: { id, passwd },
-        update: (cache, { data: { login } }) => {
-          localStorage.setItem("token", login);
-          cache.writeData({ data: { isLoggedIn: true } });
-        },
-      });
-
-      console.log(data);
-      jwtHandler(data.login);
-    }
-    this.handleFalseLoading();
-  };
-
-  private validate = () => {
-    const { isSignup } = this.state;
-
-    if (this.inputId && this.inputPasswd && (!isSignup || (this.inputNickname && isSignup))) {
-      validator.isEmail(this.inputId);
-    }
-  };
-
-  private doSignup = async (id?: string, passwd?: string, nickname?: string) => {
-    const { handleClose } = this.props;
-    const [signup] = useMutation(SIGNUP);
-
-    if (id && passwd) {
-      const { data } = await signup({ variables: { id, passwd, nickname } });
-      console.log(data);
-      handleClose();
-    }
-  };
-
-  render() {
+  public render() {
     const { dialogOpen, handleClose } = this.props;
     const classes = (this.props as any).classes;
     const { isSignup, isLoading } = this.state;
@@ -149,6 +98,56 @@ class AppBarDialog extends React.Component<ILoginProps, ILoginState> {
       </div>
     );
   }
+
+  private handleSignup = () => {
+    this.setState({ isSignup: !this.state.isSignup });
+  };
+
+  private handleTrueLoading = () => {
+    this.setState({ isLoading: true });
+  };
+
+  private handleFalseLoading = () => {
+    this.setState({ isLoading: false });
+  };
+
+  private doLogin = async (id?: string, passwd?: string) => {
+    const { jwtHandler, client } = this.props;
+
+    if (id && passwd) {
+      const { data } = await client.mutate({
+        mutation: LOGIN,
+        variables: { id, passwd },
+        update: (cache, { data: { login } }) => {
+          localStorage.setItem("token", login);
+          cache.writeData({ data: { isLoggedIn: true } });
+        },
+      });
+
+      console.log(data);
+      jwtHandler(data.login);
+    }
+    this.handleFalseLoading();
+  };
+
+  private validate = () => {
+    const { isSignup } = this.state;
+
+    if (this.inputId && this.inputPasswd && (!isSignup || (this.inputNickname && isSignup))) {
+      validator.isEmail(this.inputId);
+    }
+  };
+
+  private doSignup = async (id?: string, passwd?: string, nickname?: string) => {
+    const { handleClose } = this.props;
+    const [signup] = useMutation(SIGNUP);
+
+    if (id && passwd) {
+      const { data } = await signup({ variables: { id, passwd, nickname } });
+      console.log(data);
+      handleClose();
+    }
+  };
 }
 
 export default withApolloClient(withStyles(useStyles)(AppBarDialog));
