@@ -1,6 +1,5 @@
 import ApolloClient from "apollo-boost";
 import { InMemoryCache } from "apollo-boost";
-import gql from "graphql-tag";
 const cache = new InMemoryCache();
 cache.writeData({
   data: {
