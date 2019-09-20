@@ -11,8 +11,21 @@ export const SIGNUP = gql`
     signup(id: $id, passwd: $passwd, nickname: $nickname)
   }
 `;
+
 export const ADDPORTFOLIO = gql`
   mutation($name: String) {
     addPortfolio(name: $name)
+  }
+`;
+
+export const GETALLPORTFOLIO = gql`
+  query RetrieveAllPortfolio {
+    retrieveAllPortfolio {
+      title
+      body
+      spec
+      file
+      nickname
+    }
   }
 `;

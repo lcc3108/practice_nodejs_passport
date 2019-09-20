@@ -44,6 +44,7 @@ class AppBarDialog extends React.Component<ILoginProps, ILoginState> {
       isLoading: false,
     };
   }
+
   public render() {
     const { dialogOpen, handleClose } = this.props;
     const classes = (this.props as any).classes;
@@ -113,7 +114,6 @@ class AppBarDialog extends React.Component<ILoginProps, ILoginState> {
 
   private doLogin = async (id?: string, passwd?: string) => {
     const { jwtHandler, client } = this.props;
-
     if (id && passwd) {
       const { data } = await client.mutate({
         mutation: LOGIN,

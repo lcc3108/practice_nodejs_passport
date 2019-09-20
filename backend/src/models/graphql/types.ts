@@ -10,16 +10,26 @@ export const typeDefs = gql`
     jwt: String
   }
 
+  type Portfolio {
+    title: String
+    body: String
+    spec: [String]
+    file: [String]
+    nickname: String
+  }
+
   type Response {
     status: Int!
     message: String!
     body: String
+    portfolio: Portfolio
   }
 
   type Query {
-    ValidateToken(token: String): Boolean
+    validateToken(token: String): Boolean
     retrieveUser(id: String): User
-    retrievePortfolio(id: String): Response
+    retrievePortfolio(id: String): Response!
+    retrieveAllPortfolio: [Portfolio]
   }
 
   type Mutation {
