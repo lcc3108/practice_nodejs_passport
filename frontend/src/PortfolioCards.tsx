@@ -10,8 +10,8 @@ interface IData {
 interface IResponse {
   title: string;
   body: string;
-  spec: Array<string>;
-  file: Array<string>;
+  spec: string[];
+  file: string[];
   nickname: string;
 }
 interface IVariable {}

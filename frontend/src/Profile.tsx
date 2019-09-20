@@ -41,10 +41,10 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 interface IProps {
-  title: String;
+  title: string;
   body: string;
-  spec: Array<string>;
-  file: Array<string>;
+  spec: string[];
+  file: string[];
   nickname: string;
 }
 
