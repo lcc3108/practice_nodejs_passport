@@ -10,7 +10,7 @@ describe("singup", () => {
 
   it("doSignup", async () => {
     const result = await requestAsync("POST", "/", {
-      body: { query: 'mutation{ signup(id: "test@test.com",passwd: "dtd",nickname: "tester"){status message} }' },
+      body: { query: 'mutation{ signup(userId: "test@test.com",passwd: "dtd",nickname: "tester"){status message} }' },
     });
     expect(result).to.have.status(200);
   });

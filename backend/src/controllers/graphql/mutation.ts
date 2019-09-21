@@ -3,12 +3,12 @@ import { isValidToken, generateToken } from "../app/jwt";
 import { client } from "../redis";
 
 export default {
-  login: async (_, { id, passwd }, { user: userInfo }) => {
+  login: async (_, { userId, passwd }, { user: userInfo }) => {
     if (userInfo && (await isValidToken(userInfo))) throw "alreay exist token";
-    const user = await doLogin(id, passwd);
+    const user = await doLogin(userId, passwd);
     if (user) {
       const { id: userId, nickname } = user;
-      return generateToken(id);
+      return generateToken(userId);
     } else return "id or passwd invalid";
   },
   signup: async (_, { id, passwd, nickname }) => {
