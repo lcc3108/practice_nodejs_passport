@@ -57,7 +57,7 @@ class AppBarDialog extends React.Component<ILoginProps, ILoginState> {
 
     return (
       <div>
-        <Dialog open={dialogOpen} onClose={handleClose} aria-labelledby="form-dialog-title" aria-describedby={"form-progress"} aria-busy={true}>
+        <Dialog open={dialogOpen} onClose={handleClose} aria-labelledby="form-dialog-title" aria-describedby={"form-progress"} aria-busy={true} maxWidth="lg">
           <DialogTitle id="form-dialog-title">{isSignup ? "Signup" : "Login"}</DialogTitle>
           {isLoading ? (
             <Dialog open={!isSignup && isLoading} onClose={handleClose} aria-labelledby="form-dialog-dd" fullScreen disableEscapeKeyDown={true}>
@@ -85,8 +85,10 @@ class AppBarDialog extends React.Component<ILoginProps, ILoginState> {
                   fullWidth
                   onChange={(e) => (this.inputId = e.target.value)}
                   onBlur={async () => await this.idCheck(this.inputId)}
+                  endAdornment={
+                    <>{isSignup && <CheckButton buttonName="ID중복확인" isLoading={this.state.isLoading} isValidate={this.state.isValidate}></CheckButton>}</>
+                  }
                 />
-                {isSignup && <CheckButton buttonName="ID중복확인" isLoading={this.state.isLoading} isValidate={this.state.isValidate}></CheckButton>}
               </FormControl>
               <FormControl fullWidth>
                 <InputLabel htmlFor="input-id">Password</InputLabel>
@@ -101,7 +103,7 @@ class AppBarDialog extends React.Component<ILoginProps, ILoginState> {
               ) : null}
             </DialogContent>
             <DialogActions>
-              <Button type="submit" color="primary">
+              <Button type="submit" color="primary" disabled={this.state.isSignup && !this.state.isValidate}>
                 Submit
               </Button>
               <Button onClick={this.handleSignup} color="primary">
@@ -118,7 +120,10 @@ class AppBarDialog extends React.Component<ILoginProps, ILoginState> {
   }
 
   private async idCheck(userId: string) {
-    if (!validator.isEmail(userId)) return;
+    if (!validator.isEmail(userId)) {
+      this.setState({ isValidate: false });
+      return;
+    }
     this.setState({ isLoading: true });
     const {
       data: { validateId },

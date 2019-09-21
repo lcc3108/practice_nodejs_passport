@@ -48,7 +48,7 @@ export const CheckButton: React.FunctionComponent<ICheckButton> = ({ buttonName,
   return (
     <div className={classes.root}>
       <div className={classes.wrapper}>
-        <Fab aria-label="save" color="secondary" className={buttonClassname}>
+        <Fab aria-label="save" color="secondary" className={buttonClassname} disabled>
           {isValidate ? <CheckIcon /> : <Clear />}
         </Fab>
         {isLoading && <CircularProgress size={68} className={classes.fabProgress} />}
