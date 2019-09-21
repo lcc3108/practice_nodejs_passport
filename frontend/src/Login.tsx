@@ -1,5 +1,5 @@
 import React from "react";
-import { LOGIN, SIGNUP } from "./query";
+import { LOGIN, SIGNUP, VALIDATEID } from "./query";
 import { useMutation } from "@apollo/react-hooks";
 import { Dialog, DialogTitle, DialogContent, Button, DialogActions, FormControl, Input, InputLabel } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -9,6 +9,7 @@ import ApolloClient from "apollo-client";
 
 import validator from "validator";
 import { withApolloClient, ICacheType } from "./lib/apollo";
+import { CheckButton } from "./CheckButton";
 
 const useStyles = (theme: Theme) => ({
   progress: {
@@ -30,6 +31,7 @@ interface ILoginProps {
 interface ILoginState {
   isSignup: boolean;
   isLoading: boolean;
+  isValidate: boolean;
 }
 
 class AppBarDialog extends React.Component<ILoginProps, ILoginState> {
@@ -42,6 +44,7 @@ class AppBarDialog extends React.Component<ILoginProps, ILoginState> {
     this.state = {
       isSignup: false,
       isLoading: false,
+      isValidate: false,
     };
   }
 
@@ -57,7 +60,7 @@ class AppBarDialog extends React.Component<ILoginProps, ILoginState> {
         <Dialog open={dialogOpen} onClose={handleClose} aria-labelledby="form-dialog-title" aria-describedby={"form-progress"} aria-busy={true}>
           <DialogTitle id="form-dialog-title">{isSignup ? "Signup" : "Login"}</DialogTitle>
           {isLoading ? (
-            <Dialog open={true} onClose={handleClose} aria-labelledby="form-dialog-dd" fullScreen disableEscapeKeyDown={true}>
+            <Dialog open={!isSignup && isLoading} onClose={handleClose} aria-labelledby="form-dialog-dd" fullScreen disableEscapeKeyDown={true}>
               <CircularProgress className={classes.progress} aria-labelledby="form-progress">
                 Loading
               </CircularProgress>
@@ -74,14 +77,28 @@ class AppBarDialog extends React.Component<ILoginProps, ILoginState> {
             <DialogContent>
               <FormControl fullWidth>
                 <InputLabel htmlFor="input-id">Email address</InputLabel>
-                <Input required autoFocus margin="dense" id="id" type="email" fullWidth onChange={(e) => (this.inputId = e.target.value)} />
+                <Input
+                  required
+                  margin="dense"
+                  id="id"
+                  type="email"
+                  fullWidth
+                  onChange={(e) => (this.inputId = e.target.value)}
+                  onBlur={async () => await this.idCheck(this.inputId)}
+                />
+                {isSignup && <CheckButton buttonName="ID중복확인" isLoading={this.state.isLoading} isValidate={this.state.isValidate}></CheckButton>}
               </FormControl>
               <FormControl fullWidth>
                 <InputLabel htmlFor="input-id">Password</InputLabel>
                 <Input required margin="dense" id="passwd" type="password" fullWidth onChange={(e) => (this.inputPasswd = e.target.value)} />
               </FormControl>
 
-              {isSignup ? <Input required margin="dense" id="nickname" type="text" fullWidth onChange={(e) => (this.inputNickname = e.target.value)} /> : null}
+              {isSignup ? (
+                <FormControl fullWidth>
+                  <InputLabel htmlFor="input-id">Nickname</InputLabel>
+                  <Input required margin="dense" id="nickname" type="text" fullWidth onChange={(e) => (this.inputNickname = e.target.value)} />
+                </FormControl>
+              ) : null}
             </DialogContent>
             <DialogActions>
               <Button type="submit" color="primary">
@@ -98,6 +115,21 @@ class AppBarDialog extends React.Component<ILoginProps, ILoginState> {
         </Dialog>
       </div>
     );
+  }
+
+  private async idCheck(userId: string) {
+    if (!validator.isEmail(userId)) return;
+    this.setState({ isLoading: true });
+    const {
+      data: { validateId },
+    } = await this.props.client.query({ query: VALIDATEID, variables: { userId: this.inputId } });
+    if (validateId) {
+      this.setState({ isValidate: true });
+    } else {
+      this.setState({ isValidate: false });
+    }
+    console.log("result", validateId);
+    this.setState({ isLoading: false });
   }
 
   private handleSignup = () => {

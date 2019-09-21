@@ -27,14 +27,15 @@ export const typeDefs = gql`
 
   type Query {
     validateToken(token: String): Boolean
-    retrieveUser(id: String): User
-    retrievePortfolio(id: String): Response!
+    validateId(userId: String): Boolean
+    retrieveUser(userId: String): User
+    retrievePortfolio(userId: String): Response!
     retrieveAllPortfolio: [Portfolio]
   }
 
   type Mutation {
-    login(id: String, passwd: String): String
-    signup(id: String @isEmail, passwd: String, nickname: String): Response
+    login(userId: String, passwd: String): String
+    signup(userId: String @isEmail, passwd: String, nickname: String): Response
     signout: Response @isAuth
     addPortfolio: Response @isAuth
     addTitle(body: String): Response @isAuth
