@@ -12,6 +12,7 @@
     "@types/react": "16.9.2",
     "@types/react-dom": "16.9.0",
     "apollo-boost": "^0.4.4",
+    "for-editor": "^0.3.4",
     "graphql": "^14.5.4",
     "react": "^16.9.0",
     "react-apollo": "^3.1.0",

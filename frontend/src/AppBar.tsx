@@ -16,7 +16,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 
 import AppBarDialog from "./Login";
-
+import MarkdownEditor from "./MarkdownEditor";
 interface IPrimarySearchAppBar {
   jwtHandler: (token: string) => void;
 }
@@ -94,7 +94,8 @@ export default function PrimarySearchAppBar({ jwtHandler }: IPrimarySearchAppBar
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [dialogOpen, dialogSetOpen] = React.useState(false);
+  const [loginDialogOpen, loginDialogSetOpen] = React.useState(false);
+  const [markdownDialogOpen, markdwonDialogSetOpen] = React.useState(false);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -115,12 +116,20 @@ export default function PrimarySearchAppBar({ jwtHandler }: IPrimarySearchAppBar
     setMobileMoreAnchorEl(event.currentTarget);
   }
 
-  function handleClickOpen() {
-    dialogSetOpen(true);
+  function handleClickLoginOpen() {
+    loginDialogSetOpen(true);
   }
 
-  function handleClose() {
-    dialogSetOpen(false);
+  function handleLoginClose() {
+    loginDialogSetOpen(false);
+  }
+
+  function handleClickMarkdownOpen() {
+    markdwonDialogSetOpen(true);
+  }
+
+  function handleMarkdownClose() {
+    markdwonDialogSetOpen(false);
   }
 
   const menuId = "primary-search-account-menu";
@@ -133,8 +142,8 @@ export default function PrimarySearchAppBar({ jwtHandler }: IPrimarySearchAppBar
       transformOrigin={{ vertical: "top", horizontal: "right" }}
       open={isMenuOpen}
       onClose={handleMenuClose}>
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleClickOpen}>Login/Signup</MenuItem>
+      <MenuItem onClick={handleClickMarkdownOpen}>Profile</MenuItem>
+      <MenuItem onClick={handleClickLoginOpen}>Login/Signup</MenuItem>
     </Menu>
   );
 
@@ -228,7 +237,8 @@ export default function PrimarySearchAppBar({ jwtHandler }: IPrimarySearchAppBar
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
-      <AppBarDialog jwtHandler={jwtHandler} dialogOpen={dialogOpen} handleClose={handleClose} />
+      <AppBarDialog jwtHandler={jwtHandler} dialogOpen={loginDialogOpen} handleClose={handleLoginClose} />
+      <MarkdownEditor dialogOpen={markdownDialogOpen} handleClose={handleMarkdownClose}></MarkdownEditor>
     </div>
   );
 }

@@ -35,9 +35,9 @@ export default class PortfolioCards extends React.Component {
               <div>
                 {items.map((item) => {
                   return (
-                    <div>
-                      <Profile title={item.title} body={item.body} spec={item.spec} nickname={item.nickname} file={item.file} />
-                    </div>
+                    <>
+                      <Profile key={item.nickname} title={item.title} body={item.body} spec={item.spec} nickname={item.nickname} file={item.file} />
+                    </>
                   );
                 })}
               </div>
