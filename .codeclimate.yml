@@ -22,5 +22,6 @@ exclude_patterns:
   - "**/.editorconfig"
   - "**/.dockerignore"
   - "**/.babelrc"
+  - "**/index.ts"
   - "LICENSE"
   - "Dockerfile"
