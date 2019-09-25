@@ -33,10 +33,19 @@ before_install:
       cp google_key.json $PWD/$DIRECTORY
       cd $PWD/$DIRECTORY
     fi
+  - gcloud auth activate-service-account --key-file=google_key.json
 
   # Install codeclimate
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
+
+after_script:
+  - cd $TRAVIS_BUILD_DIR
+  - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter format-coverage -t simplecov -o ./coverage/codeclimate.$CI_NODE_INDEX.json ./coverage/spec/.resultset.json; fi
+  - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then gsutil cp coverage/ gs://lcc3108-nodejs-test-bucket/coverage/$TRAVIS_BUILD_NUMBER; fi
+  - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then gsutil cp gs://lcc3108-nodejs-test-bucket/coverage/$TRAVIS_BUILD_NUMBER coverage/; fi
+  - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter sum-coverage --output - --parts $CI_NODE_TOTAL coverage/codeclimate.*.json | ./cc-test-reporter upload-coverage --input -; fi
+
 install:
   - yarn
 
@@ -57,9 +66,7 @@ jobs:
         - yarn type-check
         - yarn test:all
         - yarn build
-      after_script:
-        - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter format-coverage -t lcov -o coverage/codeclimate.backend.json .coverage/lcov.info; fi # Format backend coverage
-        - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter upload-coverage --id $CC_TEST_REPORTER_ID; fi # Upload coverage/codeclimate.json
+
     # Frontend Test
     - env: DIRECTORY=frontend
       script:
@@ -76,7 +83,6 @@ jobs:
         - yarn build:all
       before_deploy:
         - terraform init
-        - gcloud auth activate-service-account --key-file=google_key.json
         - gsutil cp gs://lcc3108-nodejs-test-bucket/terraform.tfstate ./terraform.tfstate
       deploy:
         - provider: script
