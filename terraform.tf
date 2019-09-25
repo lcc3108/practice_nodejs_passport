@@ -1,3 +1,4 @@
+# GCP SETTING
 provider "google" {
   credentials = "${file("google_key.json")}"
   project     = "nodejs-lcc3108"
@@ -73,4 +74,24 @@ resource "google_app_engine_standard_app_version" "version_id" {
       require_matching_file = false
     }
   }
+}
+# AWS SETTING
+
+provider "aws" {
+  region                  = "us-west-2"
+  shared_credentials_file = "awskey.csv"
+}
+
+resource "aws_iam_role" "iam_for_lambda" {
+  name = "terraform"
+}
+
+resource "aws_lambda_function" "aws_function" {
+ filename = "${data.archive_file.backend_zip.output_path}"
+ function_name="test"
+   source_code_hash = "${filebase64sha256("./backend.zip")}"
+ runtime = "nodejs8.10"
+   handler       = "exports.test"
+   role= "${aws_iam_role.la}"
+
 }

@@ -8,13 +8,14 @@
     "build": "NODE_ENV=production node -r ./env.js ./node_modules/.bin/babel src --out-dir dist --copy-files --extensions \".ts,.tsx\"",
     "postbuild": "cp -t ./dist package.json ../google_key.json",
     "test": "NODE_ENV=test mocha -r ./mocha.js --timeout 10000",
-    "test:all": "NODE_ENV=test mocha -r ./mocha.js --timeout 10000 ./src/tests/**/*.spec.ts",
-    "test:local": "NODE_ENV=test node -r ./mocha.js ./src/tests/express.ts",
-    "test:prod": "NODE_ENV=production node -r ./mocha.js ./src/tests/express.ts",
-    "test:prod:all": "NODE_ENV=production mocha -r ./mocha.js --timeout 10000 ./src/tests/**/*.spec.ts",
-    "test:local:watch": "NODE_ENV=test nodemon -r ./mocha.js ./src/tests/express.ts --watch ./src -e ts",
+    "test:all": "NODE_ENV=test mocha -r ./mocha.js --timeout 10000 ./src/test/**/*.spec.ts",
+    "test:local": "NODE_ENV=test node -r ./mocha.js ./src/test/express.ts",
+    "test:prod": "NODE_ENV=production node -r ./mocha.js ./src/test/express.ts",
+    "test:prod:all": "NODE_ENV=production mocha -r ./mocha.js --timeout 10000 ./src/test/**/*.spec.ts",
+    "test:local:watch": "NODE_ENV=test nodemon -r ./mocha.js ./src/test/express.ts --watch ./src -e ts",
     "lint": "tslint ./src/**/*.ts",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "coverage": "NODE_ENV=test nyc --nycrc-path ./.nycrc mocha -r ./mocha.js ./src/test/**/*.spec.ts"
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
@@ -57,6 +58,7 @@
     "cookie-parser": "^1.4.4",
     "mocha": "^6.2.0",
     "nodemon": "^1.19.1",
+    "nyc": "^14.1.1",
     "tslint": "^5.19.0",
     "typescript": "^3.5.3"
   }

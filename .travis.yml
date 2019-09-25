@@ -34,8 +34,16 @@ before_install:
       cd $PWD/$DIRECTORY
     fi
 
+  # Install codeclimate
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
 install:
   - yarn
+
+# after_script:
+#   - ./cc-test-reporter format-coverage -t lcov -o coverage/codeclimate.frontend.json coverage/frontend/lcov.info # Format frontend coverage
+#   - ./cc-test-reporter sum-coverage coverage/codeclimate.*.json -p 2 # Sum both coverage parts into coverage/codeclimate.json
+#   - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter upload-coverage; fi # Upload coverage/codeclimate.json
 
 jobs:
   include:
@@ -43,12 +51,15 @@ jobs:
     - env: DIRECTORY=backend
       before_script:
         - openssl aes-256-cbc -K $encrypted_3390520961c0_key -iv $encrypted_3390520961c0_iv -in .env.enc -out .env -d
+        - ./cc-test-reporter before-build
       script:
         - yarn lint
         - yarn type-check
         - yarn test:all
         - yarn build
-
+      after_script:
+        - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter format-coverage -t lcov -o coverage/codeclimate.backend.json .coverage/lcov.info; fi # Format backend coverage
+        - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter upload-coverage --id $CC_TEST_REPORTER_ID; fi # Upload coverage/codeclimate.json
     # Frontend Test
     - env: DIRECTORY=frontend
       script:
@@ -75,11 +86,3 @@ jobs:
             branch: master
       after_deploy:
         - gsutil cp ./terraform.tfstate gs://lcc3108-nodejs-test-bucket/
-# jobs:
-#   include:
-#     - script: ./test 1 # uses the default stage name "test"
-#     - script: ./test 2
-#     - stage: deploy
-#       script: skip     # usually you do not want to rerun any tests
-#       deploy: &heroku
-#         provider: heroku

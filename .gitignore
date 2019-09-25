@@ -15,7 +15,7 @@ serverless.yml
 # .tfstate files
 *.tfstate
 *.tfstate.*
-
+awskey.csv
 
 # Crash log files
 crash.log

@@ -6,7 +6,8 @@
       {
         "root": ["./src"],
         "alias": { "@": "./src" }
-      }
+      },
+      "istanbul"
     ]
   ],
   "env": {
