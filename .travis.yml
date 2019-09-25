@@ -66,7 +66,7 @@ jobs:
       script:
         - yarn lint
         - yarn type-check
-        - yarn test:all
+        - yarn coverage
         - yarn build
 
     # Frontend Test

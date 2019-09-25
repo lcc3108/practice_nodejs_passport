@@ -16,7 +16,7 @@ serverless.yml
 *.tfstate
 *.tfstate.*
 awskey.csv
-
+coverage
 # Crash log files
 crash.log
 
