@@ -54,7 +54,8 @@ after_script:
   - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then cc-test-reporter format-coverage -t lcov -o ./coverage/codeclimate.$TRAVIS_JOB_NUMBER.json ./*/coverage/*.info; fi
   - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then gsutil cp -r coverage/ gs://lcc3108-nodejs-test-bucket/coverage/$TRAVIS_BUILD_NUMBER; fi
   - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then gsutil cp -r gs://lcc3108-nodejs-test-bucket/coverage/$TRAVIS_BUILD_NUMBER coverage/; fi
-  - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then cc-test-reporter sum-coverage --output - --parts 1 coverage/*.json | cc-test-reporter upload-coverage --id $CC_TEST_RPORTER_ID --input -; fi
+  - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then cc-test-reporter sum-coverage --parts 1 coverage/*.json; fi
+  - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then cc-test-reporter upload-coverage --id $CC_TEST_RPORTER_ID; fi
 
 jobs:
   include:
