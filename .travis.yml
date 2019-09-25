@@ -51,15 +51,16 @@ install:
 
 after_script:
   - cd $TRAVIS_BUILD_DIR
-  - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then cc-test-reporter format-coverage -t lcov -o ./coverage/codeclimate.$CI_NODE_INDEX.json ./*/coverage/*.info; fi
-  - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then gsutil cp coverage/ gs://lcc3108-nodejs-test-bucket/coverage/$TRAVIS_BUILD_NUMBER; fi
-  - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then gsutil cp gs://lcc3108-nodejs-test-bucket/coverage/$TRAVIS_BUILD_NUMBER coverage/; fi
-  - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then cc-test-reporter sum-coverage --output - --parts $CI_NODE_TOTAL coverage/codeclimate.*.json | cc-test-reporter upload-coverage --id $CC_TEST_RPORTER_ID --input -; fi
+  - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then cc-test-reporter format-coverage -t lcov -o ./coverage/codeclimate.$TRAVIS_JOB_NUMBER.json ./*/coverage/*.info; fi
+  - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then gsutil cp -r coverage/ gs://lcc3108-nodejs-test-bucket/coverage/$TRAVIS_BUILD_NUMBER; fi
+  - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then gsutil cp -r gs://lcc3108-nodejs-test-bucket/coverage/$TRAVIS_BUILD_NUMBER coverage/; fi
+  - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then cc-test-reporter sum-coverage --output - --parts 1 coverage/codeclimate.*.json | cc-test-reporter upload-coverage --id $CC_TEST_RPORTER_ID --input -; fi
 
 jobs:
   include:
     # Backend test
     - env: DIRECTORY=backend
+
       before_script:
         - openssl aes-256-cbc -K $encrypted_3390520961c0_key -iv $encrypted_3390520961c0_iv -in .env.enc -out .env -d
         - cc-test-reporter before-build
