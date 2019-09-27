@@ -23,5 +23,6 @@ exclude_patterns:
   - "**/.dockerignore"
   - "**/.babelrc"
   - "**/index.ts"
+  - "**/*.d.ts"
   - "LICENSE"
   - "Dockerfile"
