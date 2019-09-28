@@ -15,7 +15,7 @@
     "test:local:watch": "NODE_ENV=test nodemon -r ./mocha.js ./src/test/express.ts --watch ./src -e ts",
     "lint": "tslint ./src/**/*.ts",
     "type-check": "tsc --noEmit",
-    "coverage": "NODE_ENV=test nyc --nycrc-path ./.nycrc mocha --timeout 10000 -r ./mocha.js ./src/test/**/*.spec.ts"
+    "coverage": "NODE_ENV=test nyc --nycrc-path ./.nycrc mocha -r ./mocha.js ./src/test/**/*.spec.ts"
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.4",

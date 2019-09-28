@@ -7,7 +7,7 @@ export const getAllPortfolio = async (): Promise<FirebaseFirestore.DocumentData[
   return data;
 };
 
-export const getPortfolio = async (id: string): Promise<IPortfolio | undefined> => {
-  const querySnapshot = await portfolioCollection.where("nickname", "==", id).get();
+export const getPortfolio = async (nickname: string): Promise<IPortfolio | undefined> => {
+  const querySnapshot = await portfolioCollection.where("nickname", "==", nickname).get();
   return getSingleItem<IPortfolio>(querySnapshot);
 };

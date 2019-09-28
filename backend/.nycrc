@@ -1,7 +1,5 @@
 {
   "reporter": ["lcov", "text"],
-  "include": ["*.ts", "**/*.ts"],
-  "extension": [".js", ".jsx", ".ts", ".tsx"],
-  "exclude": ["dist/test/", "dist/**/.spec.js", "dist/index.js", "dist/typings/*", "coverage/*","src/test/**/*.*", "**/index.ts","**/*.d.ts"],
-  "all": true
+  "extension": [".ts"],
+  "exclude": ["dist/**/*", "**/*.js", "coverage/*","src/test/**/*", "**/index.ts","**/*.d.ts"]
 }

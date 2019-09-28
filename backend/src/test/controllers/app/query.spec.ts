@@ -1,6 +1,6 @@
 import { expect } from "chai";
 
-import app, { requestAsync, requestGraphQLAsync } from "@/test/http";
+import { requestGraphQLAsync } from "@/test/http";
 
 let auth: string;
 
