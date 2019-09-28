@@ -4,10 +4,6 @@ import { DocumentReference } from "@google-cloud/firestore";
 import { userCollection } from "@/controllers/firestore";
 import { getSingleItem, addSingleItem } from "@/controllers/firestore/firestore";
 
-function emailIsValid(email: string): boolean {
-  return /\S+@\S+\.\S+/.test(email);
-}
-
 export const deleteUser = async (id: string) => {
   const querySnapshot = await userCollection.where("id", "==", id).get();
   if (querySnapshot.docs[0]) querySnapshot.docs[0].ref.delete();
@@ -28,11 +24,9 @@ export const doLogin = async (id: string, passwd: string): Promise<IUser | undef
 };
 
 export const doSingUp = async (id: string, passwd: string, nickname: string): Promise<DocumentReference | undefined> => {
-  if (emailIsValid(id)) {
-    const data = await getUser(id);
-    if (!data) {
-      const { hash, salt } = await cryptHelper(passwd);
-      return addSingleItem({ id, passwd: hash, salt, nickname });
-    }
+  const data = await getUser(id);
+  if (!data) {
+    const { hash, salt } = await cryptHelper(passwd);
+    return addSingleItem({ id, passwd: hash, salt, nickname });
   }
 };

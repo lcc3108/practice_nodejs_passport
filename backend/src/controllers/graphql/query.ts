@@ -3,12 +3,11 @@ import { isValidToken } from "@/controllers/app/jwt";
 import { getAllItem } from "@/controllers/firestore/firestore";
 
 export default {
-  validateToken: (_, __, { user }) => {
-    return isValidToken(user);
+  validateToken: (_, { token }) => {
+    return isValidToken(token);
   },
   validateId: async (_, { userId }, ___) => {
     const id = await getUser(userId);
-    console.log("id", id);
     if (id) return false;
     return true;
   },
