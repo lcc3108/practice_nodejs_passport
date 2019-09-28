@@ -26,7 +26,7 @@ export const typeDefs = gql`
   }
 
   type Query {
-    validateToken(token: String): Boolean
+    validateToken: Boolean
     validateId(userId: String): Boolean
     retrieveUser(userId: String): User
     retrievePortfolio(userId: String): Response!

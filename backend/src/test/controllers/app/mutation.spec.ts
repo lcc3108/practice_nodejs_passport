@@ -5,13 +5,13 @@ import { requestGraphQLAsync, requestAsync } from "@/test/http";
 import { deleteUser } from "@/controllers/firestore/user";
 
 describe("mutation test", () => {
-  describe("login", () => {
-    it("dologin valid", async () => {
+  describe("login test", () => {
+    it("valid", async () => {
       const result = await requestGraphQLAsync({ query: 'mutation{ login(userId: "admin@test.com",passwd: "dtd"){status message} }' });
       expect(result.text).to.have.string("data");
     });
 
-    it("dologin invalid", async () => {
+    it("invalid", async () => {
       const result = await requestGraphQLAsync({ query: 'mutation{ login(userId: "admin@test.com",passwd: "zzz"){status message} }' });
       expect(result.text).to.have.string("id or passwd invalid");
     });
@@ -43,12 +43,12 @@ describe("mutation test", () => {
     });
   });
 
-  describe("singup", () => {
+  describe("singup test", () => {
     before(async () => {
       await deleteUser("test@test.com");
     });
 
-    it("doSignup", async () => {
+    it("valid", async () => {
       const result = await requestAsync("POST", "/", {
         body: { query: 'mutation{ signup(userId: "test@test.com",passwd: "dtd",nickname: "tester"){status message} }' },
       });
@@ -56,7 +56,7 @@ describe("mutation test", () => {
       expect(result.text).to.not.have.string("errors");
     });
 
-    it("doSignup invalid", async () => {
+    it("invalid", async () => {
       const result = await requestAsync("POST", "/", {
         body: { query: 'mutation{ signup(userId: "test",passwd: "dtd",nickname: "tester"){status message} }' },
       });

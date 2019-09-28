@@ -1,4 +1,4 @@
-import { IUser } from "@/models/user";
+import { IUser } from "@/models/firestore";
 import { cryptHelper } from "@/controllers/crypto";
 import { DocumentReference } from "@google-cloud/firestore";
 import { userCollection } from "@/controllers/firestore";
