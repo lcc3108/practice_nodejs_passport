@@ -1,7 +1,8 @@
-import { userCollection, getSingleItem, addSingleItem } from "@/controllers/firestore";
 import { IUser } from "@/models/user";
-import { cryptHelper } from "./crypto";
+import { cryptHelper } from "@/controllers/crypto";
 import { DocumentReference } from "@google-cloud/firestore";
+import { userCollection } from "@/controllers/firestore";
+import { getSingleItem, addSingleItem } from "@/controllers/firestore/firestore";
 
 function emailIsValid(email: string): boolean {
   return /\S+@\S+\.\S+/.test(email);

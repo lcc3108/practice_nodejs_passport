@@ -1,7 +1,7 @@
 import { expect } from "chai";
 
 import app, { requestAsync } from "@/test/http";
-import { deleteUser } from "@/controllers/user";
+import { deleteUser } from "@/controllers/firestore/user";
 
 describe("singup", () => {
   before(async () => {

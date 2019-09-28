@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { client } from "../redis";
+import { client } from "@/controllers/redis";
 
 const EXPIRE_TIME = 20 * 60;
 

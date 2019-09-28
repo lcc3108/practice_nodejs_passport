@@ -1,6 +1,5 @@
-import { doLogin, deleteUser, getUser, doSingUp } from "@/controllers/user";
+import { doLogin, deleteUser, getUser, doSingUp } from "@/controllers/firestore/user";
 import { isValidToken, generateToken } from "../app/jwt";
-import { client } from "../redis";
 
 export default {
   login: async (_, { userId, passwd }, { user: userInfo }) => {

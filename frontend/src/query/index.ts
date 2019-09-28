@@ -12,10 +12,10 @@ export const SIGNUP = gql`
   }
 `;
 
-export const VALIDATEID =  gql`
-query ValidateId($userId: String) {
-  validateId(userId: $userId)
-}
+export const VALIDATEID = gql`
+  query ValidateId($userId: String) {
+    validateId(userId: $userId)
+  }
 `;
 
 export const ADDPORTFOLIO = gql`
