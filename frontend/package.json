@@ -29,10 +29,8 @@
     "validator": "^11.1.0"
   },
   "scripts": {
-    "next:build": "next build",
-    "next:start": "node server.js",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "next build",
+    "start": "node server.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "tslint -c ../tslint.json ./src/**/*.{tsx,ts}",
