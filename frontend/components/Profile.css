@@ -1,0 +1,18 @@
+.card {
+  max-width: 345;
+}
+.media {
+  padding-top: 56.25%;
+  height: 0;
+}
+
+.expand {
+  transform: rotate(0deg);
+  margin-left: auto;
+}
+.expandOpen {
+  transform: rotate(180deg);
+}
+.avatar {
+  background-color: red;
+}
