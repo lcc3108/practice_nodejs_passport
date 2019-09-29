@@ -13,7 +13,7 @@ data "archive_file" "backend_zip" {
 
 data "archive_file" "frontend_zip" {
   type        = "zip"
-  source_dir  = "./frontend/build"
+  source_dir  = "./frontend/out"
   output_path = "./frontend.zip"
 }
 

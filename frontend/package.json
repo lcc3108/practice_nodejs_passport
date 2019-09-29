@@ -30,6 +30,7 @@
   },
   "scripts": {
     "build": "next build",
+    "export": "next export",
     "start": "node server.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
