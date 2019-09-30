@@ -13,12 +13,13 @@ export default {
   },
   retrieveUser: async (_, { userId }, { user }) => {
     const { id, nickname } = await getUser(userId);
-    if (id && nickname) return { id, nickname };
+    if (id && nickname) return { status: 200, message: "find user", user: { id, nickname } };
+    else return { status: 403, message: "errors can't find user", user: { id, nickname } };
   },
   retrievePortfolio: async (_, { userId }) => {
     const data = await getPortfolio(userId);
     if (data) return { status: 200, message: "find portfolio", portfolio: data };
-    else return { status: 403, message: "errors can't find portfolio" };
+    else return { status: 403, message: "errors can't find portfolio", portfolio: data };
   },
   retrieveAllPortfolio: async () => {
     return await getAllPortfolio();

@@ -5,9 +5,8 @@ export const typeDefs = gql`
   directive @isEmail on ARGUMENT_DEFINITION | FIELD_DEFINITION
 
   type User {
-    id: String! @isEmail
-    nickname: String!
-    jwt: String
+    id: String @isEmail
+    nickname: String
   }
 
   type Portfolio {
@@ -22,13 +21,14 @@ export const typeDefs = gql`
     status: Int!
     message: String!
     body: String
+    user: User
     portfolio: Portfolio
   }
 
   type Query {
     validateToken: Boolean
     validateId(userId: String): Boolean
-    retrieveUser(userId: String): User
+    retrieveUser(userId: String): Response!
     retrievePortfolio(userId: String): Response!
     retrieveAllPortfolio: [Portfolio]
   }
@@ -36,9 +36,9 @@ export const typeDefs = gql`
   type Mutation {
     login(userId: String, passwd: String): Response!
     signup(userId: String @isEmail, passwd: String, nickname: String): Response!
-    signout: Response @isAuth
+    signout: Response! @isAuth
     addPortfolio: Response @isAuth
-    addTitle(body: String): Response @isAuth
-    addBody(body: String): Response @isAuth
+    addTitle(body: String): Response! @isAuth
+    addBody(body: String): Response! @isAuth
   }
 `;

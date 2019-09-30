@@ -59,6 +59,26 @@ describe("query test", () => {
     });
   });
 
+  describe("retrieveUser test", () => {
+    it("valid", async () => {
+      const result = await requestGraphQLAsync({
+        query: `query{ retrieveUser(userId: "admin@test.com"){status message user { id, nickname } } }`,
+      });
+      expect(result).to.have.status(200);
+      expect(result.text).to.not.have.string("errors");
+      expect(result.body.data.retrieveUser).to.have.status(200);
+    });
+
+    it("invalid", async () => {
+      const result = await requestGraphQLAsync({
+        query: `query{ retrieveUser(userId: "dtd@test.com"){status message user { id, nickname } } }`,
+      });
+      expect(result).to.have.status(200);
+      expect(result.text).to.have.string("errors");
+      expect(result.body.data.retrieveUser).to.have.status(403);
+    });
+  });
+
   describe("retrievePortfolio test", () => {
     it("valid", async () => {
       const result = await requestGraphQLAsync({
