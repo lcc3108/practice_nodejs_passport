@@ -64,9 +64,11 @@ describe("query test", () => {
       const result = await requestGraphQLAsync({
         query: `query{ retrieveUser(userId: "admin@test.com"){status message user { id, nickname } } }`,
       });
+      const data = result.body.data;
       expect(result).to.have.status(200);
       expect(result.text).to.not.have.string("errors");
-      expect(result.body.data.retrieveUser).to.have.status(200);
+      expect(data.retrieveUser).to.have.status(200);
+      expect(data.retrieveUser.user.id).to.have.string("admin@test.com");
     });
 
     it("invalid", async () => {
@@ -76,6 +78,7 @@ describe("query test", () => {
       expect(result).to.have.status(200);
       expect(result.text).to.have.string("errors");
       expect(result.body.data.retrieveUser).to.have.status(403);
+      expect(result.body.data.retrieveUser.user).to.be.null;
     });
   });
 

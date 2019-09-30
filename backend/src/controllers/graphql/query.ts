@@ -11,10 +11,10 @@ export default {
     if (id) return false;
     return true;
   },
-  retrieveUser: async (_, { userId }, { user }) => {
-    const { id, nickname } = await getUser(userId);
-    if (id && nickname) return { status: 200, message: "find user", user: { id, nickname } };
-    else return { status: 403, message: "errors can't find user", user: { id, nickname } };
+  retrieveUser: async (_, { userId }) => {
+    const user = await getUser(userId);
+    if (user) return { status: 200, message: "find user", user };
+    else return { status: 403, message: "errors can't find user", user };
   },
   retrievePortfolio: async (_, { userId }) => {
     const data = await getPortfolio(userId);
